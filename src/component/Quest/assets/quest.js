@@ -1,0 +1,23 @@
+export const hauntedForest = {
+  name: "hauntedForest",
+  action: [
+    "move",
+    "move",
+    "move",
+    "move",
+    "move",
+    "tree",
+    "tree",
+    "tree",
+    "move",
+    "move",
+    "tree",
+    "move",
+    "tree",
+    "tree",
+    "move",
+    "move",
+    "move",
+    "demonicTree",
+  ],
+};

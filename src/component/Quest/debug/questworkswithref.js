@@ -51,6 +51,10 @@ export default function Quest({ quest }) {
   const fightHandle = (player, action) => {
     console.log("!!!!!!!---FIGHT---!!!!!!!");
     //setPlayer((s) => ({ ...s, life: 0 }));
+    playerRef.current = { ...playerRef.current, life: 0 };
+    if (player.life === 0) {
+      return false;
+    }
   };
 
   const endQuest = () => {

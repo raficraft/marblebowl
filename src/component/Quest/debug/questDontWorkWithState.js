@@ -1,10 +1,10 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { character } from "./assets/character/character";
 
 export default function Quest({ quest }) {
-  //const [player, setPlayer] = useState(character.player);
-
-  const playerRef = useRef(character.player);
+  const [player, setPlayer] = useState(character.player);
+  const [monster, setMonster] = useState({});
+  const [questTimer, setQuestTimer] = useState(null);
 
   const startQuest = (quest) => {
     const nbAction = quest.action.length;
@@ -13,15 +13,15 @@ export default function Quest({ quest }) {
     const timer = setInterval(() => {
       let action = quest.action[i];
 
-      console.log("Life point", playerRef.current.life);
+      console.log("point de vie", player.life);
 
-      if (playerRef.current.life > 0) {
+      if (player.life > 0) {
         if (i === nbAction) {
           clearInterval(timer);
           endQuest();
         } else {
           if (action === "move") {
-            console.log("player movement");
+            console.log("deplacement du joueur");
           } else {
             eventHandler(action);
           }
@@ -35,12 +35,12 @@ export default function Quest({ quest }) {
   };
 
   const eventHandler = (action) => {
-    console.log(`Interaction with the element: ${action}`);
+    console.log(`interaction avec l'element : ${action}`);
 
     const eventType = character[action].type;
 
     if (eventType === "statiqueMonster" || eventType === "monster") {
-      const eventResolution = fightHandle(playerRef, action);
+      const eventResolution = fightHandle(player, action);
 
       if (eventResolution === false) {
         console.log("GAME OVER");
@@ -49,22 +49,18 @@ export default function Quest({ quest }) {
   };
 
   const fightHandle = (player, action) => {
+    setPlayer((s) => ({ ...s, life: 0 }));
     console.log("!!!!!!!---FIGHT---!!!!!!!");
-    //setPlayer((s) => ({ ...s, life: 0 }));
   };
 
   const endQuest = () => {
-    console.log(playerRef);
+    console.log(player);
     console.log("fin de la quête", quest.name);
   };
 
   useEffect(() => {
     startQuest(quest);
   }, []);
-
-  useEffect(() => {
-    console.log(playerRef);
-  });
 
   return (
     <div>
